@@ -1,0 +1,1 @@
+db modles is the folder which will contain the database schema or definition of each api , i.e. the fielad that the api will hold to be used or filled by the user or the database columns. 
