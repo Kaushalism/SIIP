@@ -1,3 +1,4 @@
 {
-  "mongoURI": "mongodb+srv://nitinsiip:nitin123@kaushalstore2-pj2tk.mongodb.net/test?retryWrites=true&w=majority"
+  "mongoURI": "mongodb+srv://nitinsiip:nitin123@kaushalstore2-pj2tk.mongodb.net/test?retryWrites=true&w=majority",
+  "jwtsecret": "StuIntInnPlat_SecretAccess_token"
 }

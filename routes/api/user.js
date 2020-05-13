@@ -2,6 +2,8 @@ const express = require('express');
 const route = express.Router();
 const { check, validationResult } = require('express-validator'); // this is es6 destructuring
 const User = require('../../Dbmodels/users');
+const config = require('config');
+const jwt = require('jsonwebtoken');
 const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
 
@@ -16,6 +18,10 @@ route.post(
   [
     check('name', 'Please enter your Name!').not().isEmpty(),
     check('email', 'Please Enter a valid Email!').isEmail(),
+    check('enrollment', 'You are not a student of MAIT,Rohini!').isLength({
+      min: 11,
+      max: 11,
+    }),
     check(
       'password',
       'Please Enter a Password with 6 or more characters!'
@@ -27,11 +33,11 @@ route.post(
       return res.status(400).json({ errorOccured: error.array() });
     }
 
-    const { name, email, password } = req.body;
+    const { name, email, password, enrollment } = req.body;
 
     try {
       //see if the user exists
-      let user = User.findOne({ email }); // findOne() function is used to search element in a object/anything.
+      let user = await User.findOne({ email }); // findOne() function is used to search element in a object/anything.
       if (user) {
         return res
           .status(400)
@@ -49,6 +55,7 @@ route.post(
       user = new User({
         name,
         email,
+        enrollment,
         avatar,
         password,
       });
@@ -60,7 +67,24 @@ route.post(
       await user.save();
 
       //return jswebtoken
-      res.send('User Account Created!');
+      const payload = {
+        user: {
+          id: user.id,
+        },
+      };
+
+      jwt.sign(
+        payload,
+        config.get('jwtsecret'),
+        { expiresIn: 36000 },
+        (err, token) => {
+          if (err) {
+            throw err;
+          } else {
+            res.json({ token });
+          }
+        }
+      );
     } catch (error) {
       console.error(error.message);
       res.status(500).send('Internal Server Error!');
