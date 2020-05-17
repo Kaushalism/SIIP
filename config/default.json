@@ -1,4 +1,6 @@
 {
   "mongoURI": "mongodb+srv://nitinsiip:nitin123@kaushalstore2-pj2tk.mongodb.net/test?retryWrites=true&w=majority",
-  "jwtsecret": "StuIntInnPlat_SecretAccess_token"
+  "jwtsecret": "StuIntInnPlat_SecretAccess_token",
+  "GitclientId": "7f605c896f97681a31c6",
+  "GitclientSecret": "0d21d4a7d4c84d4dcde2997c28e1b45b109120fb"
 }

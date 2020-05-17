@@ -61,7 +61,7 @@ route.post(
           id: user.id,
         },
       };
-
+      //jw token generation
       jwt.sign(
         payload,
         config.get('jwtsecret'),

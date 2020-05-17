@@ -15,6 +15,7 @@ const connectDB = async () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
+      useFindAndModify: false,
     }); // connect returns a promise
     console.log('MongoDB connected!');
   } catch (error) {

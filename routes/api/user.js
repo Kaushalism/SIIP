@@ -66,7 +66,7 @@ route.post(
 
       await user.save();
 
-      //return jswebtoken
+      //creation and return of jswebtoken
       const payload = {
         user: {
           id: user.id,
