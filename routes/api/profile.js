@@ -161,7 +161,7 @@ route.get('/user/:user_id', async (req, res) => {
     }
   } catch (err) {
     console.error(err.message);
-    if (err.kind == 'ObjectId') {
+    if (err.kind === 'ObjectId') {
       res.status(400).json({ msg: 'User Profile Not Found!' });
     }
     res.status(500).send('Internal Server Error!');
