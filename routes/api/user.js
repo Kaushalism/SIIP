@@ -18,7 +18,7 @@ route.post(
   [
     check('name', 'Please enter your Name!').not().isEmpty(),
     check('email', 'Please Enter a valid Email!').isEmail(),
-    check('enrollment', 'You are not a student of MAIT,Rohini!').isLength({
+    check('enrollment', 'Enrollment no. is not valid!').isLength({
       min: 11,
       max: 11,
     }),
@@ -32,6 +32,26 @@ route.post(
     if (!error.isEmpty()) {
       return res.status(400).json({ errorOccured: error.array() });
     }
+    // to verify that if a student is a MAIT student or not
+
+    let roll = req.body.enrollment;
+    let curr_date = new Date().getFullYear();
+    let roll_valid = parseInt(roll, 10) + 4;
+
+    if (roll.slice(3, 6) !== '148' && roll.slice(3, 6) !== '964') {
+      return res
+        .status(400)
+        .json({ msg: 'You are not a member of MAIT,Rohini' });
+    } else if (
+      roll_valid.toString().slice(9, 12) < curr_date.toString().slice(2, 4)
+    ) {
+      return res.status(400).json({
+        msg:
+          'You are a MAIT,Rohini Passout! you need to be a current member of MAIT,Rohini to use this facility.',
+      });
+    }
+
+    //
 
     const { name, email, password, enrollment } = req.body;
 

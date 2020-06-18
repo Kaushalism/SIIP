@@ -21,7 +21,6 @@ const Userschema = new mongoose.Schema({
   enrollment: {
     type: Number,
     require: true,
-    unique: true,
   },
   date: {
     type: Date,
